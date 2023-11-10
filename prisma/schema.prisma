@@ -6,18 +6,31 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+// datasource db {
+//   provider = "mysql"
+//   url      = env("DATABASE_URL")
+// }
 
-model Issue {
-  id         Int      @id @default(autoincrement())
-  title      String   @db.VarChar(255)
-  decription String   @db.Text
-  status     Status   @default(OPEN)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title      String   
+  decription String   
+  status     Status?   @default(OPEN)
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
 }
+
+// model Issue {
+//   id         Int      @id @default(autoincrement())
+//   title      String   @db.VarChar(255)
+//   decription String   @db.Text
+//   status     Status   @default(OPEN)
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+// }
 
 enum Status {
   OPEN
